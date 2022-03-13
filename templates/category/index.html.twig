@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                 id="navbarNav">
+                {% for $categoryBis in $category %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               href="{{ path('/category/{{ categoryBis.slug }}', route_parameters = ['categoryName' => '{{ categoryBis.name }}'], relative = false) }}"></a>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </nav>
+    <h1> Catégorie : {{ $name }}</h1>
+    {% for $product in $products %}
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <a href="{{ path('/category/{{ product.id }}', route_parameters = [], relative = false) }}">
+                               <img class="bd-placeholder-img card-img-top"
+                                     width="100%"
+                                     height="100%"
+                                     src="{{ asset('storage/img/products/product_001.jpg') }}">
+                            </a>
+                            <div class="card-body">
+                                <h2>{{ product.title }} </h2>
+                                <p class="card-text">{{ product.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a type="button"  class="btn-dark border-warning p-2 text-warning" href="path('/product/{{ product.id }}')">
+                                            See more
+                                        </a>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary card-text">Add to cart
+                                        </button>
+                                    </div>
+                                    <small class="text-muted">{{ product.unit_price_with_vat }}€ TTC</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+{% endblock %}
